@@ -81,6 +81,12 @@
 			<version>1.18.32</version>
 		</dependency>
 
+		<!-- reactive mongodb starter -->
+		<dependency>
+			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+			<groupId>org.springframework.boot</groupId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
