@@ -1,5 +1,6 @@
 package com.survival.controler;
 
+import com.survival.dto.ScoreResponse;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -11,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import jakarta.validation.constraints.NotBlank;
+import com.survival.mapper.ScoreResponseMapper;
 
 @RestController
 @RequestMapping("score")
 @Slf4j
 @AllArgsConstructor
-public class ScoreControler {
+public class ScoreController {
 
 
     @GetMapping("/{playerId}")
     @SneakyThrows
-    public Mono<ResponseEntity<String>> findByHomeId(
-        @RequestHeader("x-correlation-id") final String xCorrelationId,
+    public Mono<ResponseEntity<ScoreResponse>> findScoreById(
         @PathVariable final @NotBlank String playerId) {
-        return Mono.just(ResponseEntity.ok("OK"));
+        return Mono.just(ResponseEntity.ok(ScoreResponseMapper.from(playerId, 0)));
     }
 
 }
