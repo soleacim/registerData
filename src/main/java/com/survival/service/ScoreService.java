@@ -4,6 +4,7 @@ package com.survival.service;
 import com.survival.entity.Score;
 import com.survival.repository.ScoreRepository;
 import com.survival.request.ScoreRequest;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class ScoreService {
 
     private ScoreRepository scoreRepository;
 
-    public Mono<Score> getScoreByPlayerId(String playerId){
-        return scoreRepository.findByPlayerId(playerId);
+    public Mono<List<Score>> getScoreByPlayerId(String playerId){
+        return scoreRepository.findByPlayerId(playerId).collectList();
     }
 
     public Mono<Score> saveScore(ScoreRequest request){
