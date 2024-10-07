@@ -1,9 +1,9 @@
-package com.survival.service;
+package com.survival.register.service;
 
 
-import com.survival.entity.Score;
-import com.survival.repository.ScoreRepository;
-import com.survival.request.ScoreRequest;
+import com.survival.register.entity.Score;
+import com.survival.register.repository.ScoreRepository;
+import com.survival.register.request.ScoreRequest;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

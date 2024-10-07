@@ -1,4 +1,4 @@
-package com.survival.dto;
+package com.survival.register.dto;
 
 import lombok.Builder;
 import lombok.Getter;

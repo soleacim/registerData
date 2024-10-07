@@ -1,0 +1,39 @@
+logging.level.com.survival: INFO
+
+server.port: 8080
+
+# Management
+management.server.port: 8081
+management.server.address: 127.0.0.1
+management.server.context-path: /
+
+# Management endpoints
+management.endpoints.web.base-path: /
+management.endpoints.enabled-by-default: true
+management.endpoints.web.exposure.include:
+  - health
+  - info
+  - prometheus
+
+management.endpoint.health.enabled: true
+management.info.env.enabled: true
+
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: mso_registerdata
+
+# swagger-ui custom path
+springdoc:
+  api-docs:
+    enabled: 'true'
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: 'true'
+    path: /swagger-ui.html
+
+app:
+  security:
+    public-route: /info,/prometheus

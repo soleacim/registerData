@@ -1,4 +1,4 @@
-package com.survival.request;
+package com.survival.register.request;
 
 import lombok.Getter;
 import lombok.Setter;

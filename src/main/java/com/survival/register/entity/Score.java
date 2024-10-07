@@ -1,4 +1,4 @@
-package com.survival.entity;
+package com.survival.register.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

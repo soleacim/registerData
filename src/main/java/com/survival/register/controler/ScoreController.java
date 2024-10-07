@@ -1,12 +1,14 @@
-package com.survival.controler;
+package com.survival.register.controler;
 
-import com.survival.dto.ScoreResponse;
-import com.survival.dto.ScoreResponseList;
-import com.survival.mapper.ScoreResponseMapper;
-import com.survival.request.ScoreRequest;
-import com.survival.service.ScoreService;
+import com.survival.register.dto.ScoreResponse;
+import com.survival.register.dto.ScoreResponseList;
+import com.survival.register.mapper.ScoreResponseMapper;
+import com.survival.register.request.ScoreRequest;
+import com.survival.register.service.ScoreService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,12 +24,14 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/scores")
 @Slf4j
-@AllArgsConstructor
+@Tag(name = "Scores controller")
+@RequiredArgsConstructor
 public class ScoreController {
 
     private final ScoreService scoreService;
 
     @GetMapping("/players/{playerId}")
+    @Operation(summary = "get scores from player")
     @SneakyThrows
     public Mono<ResponseEntity<ScoreResponseList>> findScoreByPlayerId(@PathVariable final @NotBlank String playerId) {
         return scoreService.getScoreByPlayerId(playerId)
@@ -35,6 +39,7 @@ public class ScoreController {
     }
 
     @PostMapping
+    @Operation(summary = "record score from a player")
     @SneakyThrows
     public Mono<ResponseEntity<ScoreResponse>> saveScore(@RequestBody ScoreRequest request){
         return scoreService.saveScore(request)
