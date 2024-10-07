@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -38,10 +39,22 @@ public class ScoreController {
             .map(scores -> ResponseEntity.ok(ScoreResponseMapper.from(scores)));
     }
 
+    @GetMapping("/best")
+    @Operation(summary = "get scores from player")
+    @SneakyThrows
+    public Mono<ResponseEntity<ScoreResponseList>> findBestScores(
+        @RequestParam(required = false) Integer limit
+    ) {
+        return scoreService.findBestScores(limit)
+            .map(scores -> ResponseEntity.ok(ScoreResponseMapper.from(scores)));
+    }
+
     @PostMapping
     @Operation(summary = "record score from a player")
     @SneakyThrows
-    public Mono<ResponseEntity<ScoreResponse>> saveScore(@RequestBody ScoreRequest request){
+    public Mono<ResponseEntity<ScoreResponse>> saveScore(
+        @RequestBody ScoreRequest request)
+    {
         return scoreService.saveScore(request)
             .map(score -> ResponseEntity.status(HttpStatus.CREATED)
                 .body(ScoreResponseMapper.from(score.getPlayerId(), score.getScore())));

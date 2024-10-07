@@ -28,5 +28,18 @@ public class ScoreService {
         return scoreRepository.save(score);
     }
 
+    public Mono<List<Score>> findAllScores() {
+        return scoreRepository.findAll().collectList();
+    }
 
+
+    public Mono<List<Score>> findBestScores(Integer limit) {
+        return findAllScores()
+            .map(scores ->
+                scores.stream()
+                    .sorted((a, b) -> b.getScore() - a.getScore())
+                    .limit(limit == null ? 3 : limit)
+                    .toList()
+            );
+    }
 }
