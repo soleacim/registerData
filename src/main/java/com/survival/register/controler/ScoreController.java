@@ -34,7 +34,9 @@ public class ScoreController {
     @GetMapping("/players/{playerId}")
     @Operation(summary = "get scores from player")
     @SneakyThrows
-    public Mono<ResponseEntity<ScoreResponseList>> findScoreByPlayerId(@PathVariable final @NotBlank String playerId) {
+    public Mono<ResponseEntity<ScoreResponseList>> findScoreByPlayerId(
+        @PathVariable final @NotBlank String playerId
+    ) {
         return scoreService.getScoreByPlayerId(playerId)
             .map(scores -> ResponseEntity.ok(ScoreResponseMapper.from(scores)));
     }
@@ -53,8 +55,8 @@ public class ScoreController {
     @Operation(summary = "record score from a player")
     @SneakyThrows
     public Mono<ResponseEntity<ScoreResponse>> saveScore(
-        @RequestBody ScoreRequest request)
-    {
+        @RequestBody ScoreRequest request
+    ) {
         return scoreService.saveScore(request)
             .map(score -> ResponseEntity.status(HttpStatus.CREATED)
                 .body(ScoreResponseMapper.from(score.getPlayerId(), score.getScore())));
