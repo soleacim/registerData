@@ -18,12 +18,17 @@ management.endpoints.web.exposure.include:
 management.endpoint.health.enabled: true
 management.info.env.enabled: true
 
-
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017
-      database: mso_registerdata
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/mydatabase
+    username: myuser
+    password: mypassword
+    schema: classpath:schema.sql
+
+  # Désactiver Hibernate (non utilisé avec R2DBC)
+  jpa:
+    hibernate:
+      ddl-auto: none
 
 # swagger-ui custom path
 springdoc:
@@ -37,3 +42,4 @@ springdoc:
 app:
   security:
     public-route: /info,/prometheus
+
